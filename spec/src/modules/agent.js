@@ -372,7 +372,7 @@ describe(`ConstructorIO - Agent${bundledDescriptionSuffix}`, () => {
         intent_result_id: '5ef345d6-3a36-4c4b-9de4-763d04e294f2',
         thread_id: 'e421aec7-8b2a-4398-847e-08badd0225bc',
         question: 'Who are you shopping for?',
-        options: ["Women's styles", "Men's styles", 'Kids and baby'],
+        options: ['Women\'s styles', 'Men\'s styles', 'Kids and baby'],
       };
 
       setupEventListeners(mockEventSource, mockStreamController, Agent.EventTypes);
