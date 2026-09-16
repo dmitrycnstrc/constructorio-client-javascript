@@ -12118,6 +12118,25 @@ describe(`ConstructorIO - Tracker${bundledDescriptionSuffix}`, () => {
 
       expect(tracker.trackAgentButtonClick(requiredParameters)).to.equal(true);
     });
+
+    it('Should throw an error when instanceId is 0', () => {
+      const { tracker } = new ConstructorIO({ apiKey: testApiKey });
+
+      expect(tracker.trackAgentButtonClick({ ...requiredParameters, instanceId: 0 })).to.be.an('error');
+    });
+
+    it('Should throw an error when instanceId is negative', () => {
+      const { tracker } = new ConstructorIO({ apiKey: testApiKey });
+
+      expect(tracker.trackAgentButtonClick({ ...requiredParameters, instanceId: -1 })).to.be.an('error');
+    });
+
+    it('Should throw an error when instanceId is not an integer', () => {
+      const { tracker } = new ConstructorIO({ apiKey: testApiKey });
+
+      expect(tracker.trackAgentButtonClick({ ...requiredParameters, instanceId: 1.5 })).to.be.an('error');
+      expect(tracker.trackAgentButtonClick({ ...requiredParameters, instanceId: '1' })).to.be.an('error');
+    });
   });
 
   describe('trackAssistantSubmit', () => {

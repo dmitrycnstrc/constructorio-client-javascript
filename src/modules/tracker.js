@@ -3149,7 +3149,7 @@ class Tracker {
    * @param {string} parameters.domain - Agent experience the CTA opens or starts Ex. "explorer"
    * @param {string} [parameters.positionOnPage] - Stable label describing where the CTA is placed Ex. "search_bar"
    * @param {string} [parameters.pageType] - Page surface where the CTA was clicked. One of "home", "plp", "pdp", "collection", "email_campaign", "cart"
-   * @param {number} [parameters.instanceId] - 1-based index distinguishing CTA instances with the same mode and position during one page view
+   * @param {number} [parameters.instanceId] - 1-based positive integer distinguishing CTA instances with the same mode and position during one page view
    * @param {string} [parameters.section] - The section name for the item Ex. "Products"
    * @param {object} [networkParameters] - Parameters relevant to the network request
    * @param {number} [networkParameters.timeout] - Request timeout (in milliseconds)
@@ -3204,7 +3204,13 @@ class Tracker {
         bodyParams.page_type = pageType;
       }
 
-      if (instanceId) {
+      if (!helpers.isNil(instanceId)) {
+        if (!Number.isInteger(instanceId) || instanceId < 1) {
+          this.requests.send();
+
+          return new Error('instanceId must be a positive integer');
+        }
+
         bodyParams.instance_id = instanceId;
       }
 
