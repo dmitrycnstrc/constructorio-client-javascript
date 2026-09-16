@@ -3156,15 +3156,19 @@ class Tracker {
    * @param {object} parameters - Additional parameters to be sent with request
    * @param {string} parameters.intent - Intent of user request
    * @param {string} [parameters.section] - The section name for the item Ex. "Products"
+   * @param {string} [parameters.threadId] - Thread ID for grouping events within a conversation
+   * @param {string} [parameters.source] - How the intent was submitted Ex. "suggestion"
    * @param {object} [networkParameters] - Parameters relevant to the network request
    * @param {number} [networkParameters.timeout] - Request timeout (in milliseconds)
    * @returns {(true|Error)}
    * @description User submitted an assistant search
-   *   (pressing enter within assistant input element, or clicking assistant submit element)
+   *   (pressing enter within assistant input element, or clicking an assistant submit or
+   *   suggested question element)
    * @example
    * constructorio.tracker.trackAssistantSubmit(
    *     {
    *         intent: 'show me a recipe for a cookie',
+   *         source: 'suggestion',
    *     },
    * );
    */
