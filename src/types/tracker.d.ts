@@ -352,10 +352,10 @@ declare class Tracker {
 
   trackAgentButtonClick(
     parameters: {
-      mode: string;
-      domain: string;
+      mode: 'chat' | 'search' | 'qna' | 'recommendations' | 'query_refinement';
+      agentDomain: string;
       positionOnPage?: string;
-      pageType?: 'home' | 'plp' | 'pdp' | 'collection' | 'email_campaign' | 'cart';
+      pageType?: 'home' | 'plp' | 'pdp' | 'search' | 'collection' | 'email_campaign' | 'cart';
       instanceId?: number;
       section?: string;
     },

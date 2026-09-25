@@ -11781,11 +11781,11 @@ describe(`ConstructorIO - Tracker${bundledDescriptionSuffix}`, () => {
   });
 
   describe('trackAgentButtonClick', () => {
-    const requiredParameters = { mode: 'chat', domain: 'explorer' };
+    const requiredParameters = { mode: 'chat', agentDomain: 'explorer' };
     const optionalParameters = {
       section: 'Products',
       positionOnPage: 'search_bar',
-      pageType: 'pdp',
+      pageType: 'search',
       instanceId: 1,
     };
 
@@ -11807,7 +11807,8 @@ describe(`ConstructorIO - Tracker${bundledDescriptionSuffix}`, () => {
         expect(requestParams).to.have.property('c').to.equal(clientVersion);
         expect(requestParams).to.have.property('_dt');
         expect(requestParams).to.have.property('mode').to.equal(requiredParameters.mode);
-        expect(requestParams).to.have.property('domain').to.equal(requiredParameters.domain);
+        expect(requestParams).to.have.property('agent_domain').to.equal(requiredParameters.agentDomain);
+        expect(requestParams).to.not.have.property('domain');
         validateOriginReferrer(requestParams);
 
         // Response
@@ -11965,20 +11966,20 @@ describe(`ConstructorIO - Tracker${bundledDescriptionSuffix}`, () => {
     it('Should throw an error when mode is not provided', () => {
       const { tracker } = new ConstructorIO({ apiKey: testApiKey });
 
-      expect(tracker.trackAgentButtonClick({ domain: 'explorer' })).to.be.an('error');
+      expect(tracker.trackAgentButtonClick({ agentDomain: 'explorer' })).to.be.an('error');
     });
 
-    it('Should throw an error when domain is not provided', () => {
+    it('Should throw an error when agentDomain is not provided', () => {
       const { tracker } = new ConstructorIO({ apiKey: testApiKey });
 
       expect(tracker.trackAgentButtonClick({ mode: 'chat' })).to.be.an('error');
     });
 
-    it('Should throw an error when mode or domain is not a string', () => {
+    it('Should throw an error when mode or agentDomain is not a string', () => {
       const { tracker } = new ConstructorIO({ apiKey: testApiKey });
 
-      expect(tracker.trackAgentButtonClick({ mode: 1, domain: 'explorer' })).to.be.an('error');
-      expect(tracker.trackAgentButtonClick({ mode: 'chat', domain: {} })).to.be.an('error');
+      expect(tracker.trackAgentButtonClick({ mode: 1, agentDomain: 'explorer' })).to.be.an('error');
+      expect(tracker.trackAgentButtonClick({ mode: 'chat', agentDomain: {} })).to.be.an('error');
     });
 
     it('Should send along origin_referrer query param if sendReferrerWithTrackingEvents is true', (done) => {

@@ -3145,10 +3145,10 @@ class Tracker {
    *
    * @function trackAgentButtonClick
    * @param {object} parameters - Additional parameters to be sent with request
-   * @param {string} parameters.mode - Agent mode the CTA opens or starts Ex. "chat"
-   * @param {string} parameters.domain - Agent experience the CTA opens or starts Ex. "explorer"
+   * @param {string} parameters.mode - Agent mode the CTA opens or starts. One of "chat", "search", "qna", "recommendations", "query_refinement"
+   * @param {string} parameters.agentDomain - Agent experience the CTA opens or starts Ex. "explorer"
    * @param {string} [parameters.positionOnPage] - Stable label describing where the CTA is placed Ex. "search_bar"
-   * @param {string} [parameters.pageType] - Page surface where the CTA was clicked. One of "home", "plp", "pdp", "collection", "email_campaign", "cart"
+   * @param {string} [parameters.pageType] - Page surface where the CTA was clicked. One of "home", "plp", "pdp", "search", "collection", "email_campaign", "cart"
    * @param {number} [parameters.instanceId] - 1-based positive integer distinguishing CTA instances with the same mode and position during one page view
    * @param {string} [parameters.section] - The section name for the item Ex. "Products"
    * @param {object} [networkParameters] - Parameters relevant to the network request
@@ -3159,7 +3159,7 @@ class Tracker {
    * constructorio.tracker.trackAgentButtonClick(
    *     {
    *         mode: 'chat',
-   *         domain: 'explorer',
+   *         agentDomain: 'explorer',
    *         positionOnPage: 'search_bar',
    *         pageType: 'pdp',
    *         instanceId: 1,
@@ -3170,7 +3170,7 @@ class Tracker {
     if (parameters && typeof parameters === 'object' && !Array.isArray(parameters)) {
       const {
         mode,
-        domain,
+        agentDomain,
         positionOnPage,
         pageType,
         instanceId,
@@ -3183,16 +3183,16 @@ class Tracker {
         return new Error('mode is a required parameter of type string');
       }
 
-      if (!domain || typeof domain !== 'string') {
+      if (!agentDomain || typeof agentDomain !== 'string') {
         this.requests.send();
 
-        return new Error('domain is a required parameter of type string');
+        return new Error('agentDomain is a required parameter of type string');
       }
 
       const baseUrl = `${this.options.serviceUrl}/v2/behavioral_action/ai_agent_button_click?`;
       const bodyParams = {
         mode,
-        domain,
+        agent_domain: agentDomain,
         section,
       };
 
